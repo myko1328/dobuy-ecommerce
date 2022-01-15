@@ -1,9 +1,9 @@
+import Cookies from 'js-cookie';
 import { createContext, useReducer } from 'react';
 
 export const Store = createContext();
 
 function reducer(state, action) {
-	console.log('STATE DIRI', state);
 	switch (action.type) {
 		case 'DARK_MODE_ON':
 			return { ...state, darkMode: true };
@@ -16,7 +16,7 @@ function reducer(state, action) {
 
 export function StoreProvider(props) {
 	const [state, dispatch] = useReducer(reducer, {
-		darkMode: false,
+		darkMode: Cookies.get('darkMode') === 'ON' ? true : false,
 	});
 
 	const value = { state, dispatch };
