@@ -1,21 +1,23 @@
+import React, { useContext } from 'react';
 import Head from 'next/head';
-import React from 'react';
 import NextLink from 'next/link';
-
 import {
 	AppBar,
-	Container,
-	createMuiTheme,
-	CssBaseline,
-	Link,
-	ThemeProvider,
 	Toolbar,
 	Typography,
+	Container,
+	Link,
+	ThemeProvider,
+	CssBaseline,
 } from '@material-ui/core';
-import useStyle from '../utils/styles';
+import { createTheme } from '@material-ui/core/styles';
+import useStyles from '../utils/styles';
+import { Store } from '../utils/Store';
 
-const Layout = ({ description, title, children }) => {
-	const theme = createMuiTheme({
+export default function Layout({ title, description, children }) {
+	const { state } = useContext(Store);
+	const { darkMode } = state;
+	const theme = createTheme({
 		typography: {
 			h1: {
 				fontSize: '1.6rem',
@@ -23,16 +25,13 @@ const Layout = ({ description, title, children }) => {
 				margin: '1rem 0',
 			},
 			h2: {
-				fontSize: '1.2rem',
+				fontSize: '1.4rem',
 				fontWeight: 400,
 				margin: '1rem 0',
 			},
-			body1: {
-				fontWeight: 'normal',
-			},
 		},
 		palette: {
-			type: 'light',
+			type: darkMode ? 'dark' : 'light',
 			primary: {
 				main: '#f0c000',
 			},
@@ -41,11 +40,12 @@ const Layout = ({ description, title, children }) => {
 			},
 		},
 	});
-	const classes = useStyle();
+	const classes = useStyles();
+
 	return (
 		<div>
 			<Head>
-				<title>{title ? `${title} - Next dobuy` : 'Next dobuy'}</title>
+				<title>{title ? `${title} - Next Amazona` : 'Next Amazona'}</title>
 				{description && <meta name='description' content={description}></meta>}
 			</Head>
 			<ThemeProvider theme={theme}>
@@ -54,7 +54,7 @@ const Layout = ({ description, title, children }) => {
 					<Toolbar>
 						<NextLink href='/' passHref>
 							<Link>
-								<Typography className={classes.brand}>Do-buy</Typography>
+								<Typography className={classes.brand}>amazona</Typography>
 							</Link>
 						</NextLink>
 						<div className={classes.grow}></div>
@@ -70,11 +70,9 @@ const Layout = ({ description, title, children }) => {
 				</AppBar>
 				<Container className={classes.main}>{children}</Container>
 				<footer className={classes.footer}>
-					<Typography>All rights reserved.</Typography>
+					<Typography>All rights reserved. Next Amazona.</Typography>
 				</footer>
 			</ThemeProvider>
 		</div>
 	);
-};
-
-export default Layout;
+}

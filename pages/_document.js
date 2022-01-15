@@ -1,5 +1,5 @@
-import { ServerStyleSheets } from '@material-ui/core';
-import Document, { Html, Main, NextScript, Head } from 'next/document';
+import { ServerStyleSheets } from '@material-ui/core/styles';
+import Document, { Head, Html, Main, NextScript } from 'next/document';
 import React from 'react';
 
 export default class MyDocument extends Document {
@@ -10,7 +10,7 @@ export default class MyDocument extends Document {
 					<link
 						rel='stylesheet'
 						href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
-					></link>
+					/>
 				</Head>
 				<body>
 					<Main />
