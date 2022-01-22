@@ -1,6 +1,4 @@
-import { useRouter } from 'next/router';
 import React from 'react';
-import data from '../../utils/data';
 import Layout from '../../components/Layout';
 import NextLink from 'next/link';
 import {
@@ -14,15 +12,18 @@ import {
 } from '@material-ui/core';
 import useStyle from '../../utils/styles';
 import Image from 'next/image';
+import db from '../../utils/db';
+import Product from '../../models/Product';
 
-const ProductScreen = () => {
-	const router = useRouter();
+const ProductScreen = (props) => {
+	const { product } = props;
+	// const router = useRouter();
 	const classes = useStyle();
-	const { slug } = router.query;
-	const product = data.products.find((a) => a.slug === slug);
-	if (!product) {
-		return <div>Product not found</div>;
-	}
+	// const { slug } = router.query;
+	// const product = data.products.find((a) => a.slug === slug);
+	// if (!product) {
+	// 	return <div>Product not found</div>;
+	// }
 	return (
 		// <div>
 		// 	{!product ? <div>Product not found </div> : <h1>{product.name}</h1>}
@@ -108,3 +109,16 @@ const ProductScreen = () => {
 };
 
 export default ProductScreen;
+
+export const getServerSideProps = async (ctx) => {
+	const { params } = ctx;
+	const { slug } = params;
+	await db.connect();
+	const product = await Product.findOne({ slug }).lean();
+	await db.disconnect();
+	return {
+		props: {
+			product: db.convertDocToObj(product),
+		},
+	};
+};
