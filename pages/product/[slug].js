@@ -16,11 +16,12 @@ import db from '../../utils/db';
 import Product from '../../models/Product';
 import { Store } from '../../utils/Store';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 const ProductScreen = (props) => {
 	const { state, dispatch } = useContext(Store);
 	const { product } = props;
-	// const router = useRouter();
+	const router = useRouter();
 	const classes = useStyle();
 	// const { slug } = router.query;
 	// const product = data.products.find((a) => a.slug === slug);
@@ -35,6 +36,7 @@ const ProductScreen = (props) => {
 			return;
 		}
 		dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity: 1 } });
+		router.push('/cart');
 	};
 
 	return (
