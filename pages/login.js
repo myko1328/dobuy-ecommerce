@@ -80,8 +80,8 @@ const Login = () => {
 						</Button>
 					</ListItem>
 					<ListItem>
-						Don't have an account?
-						<NextLink href='/register' passHref>
+						Don't have an account? &nbsp;
+						<NextLink href={`/register?redirect=${redirect || '/'}`} passHref>
 							<Link>Register</Link>
 						</NextLink>
 					</ListItem>
