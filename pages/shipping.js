@@ -12,23 +12,33 @@ import { Store } from '../utils/Store';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import { Controller, useForm } from 'react-hook-form';
+import CheckoutWizard from '../components/checkoutWizard';
 
 const Shipping = () => {
 	const {
 		handleSubmit,
 		control,
 		formState: { errors },
+		setValue,
 	} = useForm();
 	const router = useRouter();
 
 	const { redirect } = router.query; //login?redirect=shipping
 	const { state, dispatch } = useContext(Store);
-	const { userInfo } = state;
+	const {
+		userInfo,
+		cart: { shippingAddress },
+	} = state;
 
 	useEffect(() => {
 		if (!userInfo) {
 			router.push('/login?redirect=/shipping');
 		}
+		setValue('fullName', shippingAddress.fullName);
+		setValue('fullName', shippingAddress.address);
+		setValue('fullName', shippingAddress.city);
+		setValue('fullName', shippingAddress.postalCode);
+		setValue('fullName', shippingAddress.country);
 	}, []);
 
 	const classes = useStyle();
@@ -38,18 +48,23 @@ const Shipping = () => {
 			type: 'SAVE_SHIPPING_ADDRESS',
 			payload: { fullName, address, city, postalCode, country },
 		});
-		Cookies.set('shippingAddress', {
-			fullName,
-			address,
-			city,
-			postalCode,
-			country,
-		});
+
+		Cookies.set(
+			'shippingAddress',
+			JSON.stringify({
+				fullName,
+				address,
+				city,
+				postalCode,
+				country,
+			})
+		);
 		router.push('/payment');
 	};
 
 	return (
-		<Layout title='Shippinh'>
+		<Layout title='Shipping'>
+			<CheckoutWizard activeStep={1} />
 			<form onSubmit={handleSubmit(submitHandler)} className={classes.form}>
 				<Typography component='h1' variant='h1'>
 					Shipping To
