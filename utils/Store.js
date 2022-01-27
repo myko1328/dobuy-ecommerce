@@ -62,6 +62,9 @@ export function StoreProvider(props) {
 			shippingAddress: Cookies.get('shippingAddress')
 				? JSON.parse(Cookies.get('shippingAddress'))
 				: {},
+			paymentMethod: Cookies.get('paymentMethod')
+				? Cookies.get('paymentMethod')
+				: '',
 		},
 		userInfo: Cookies.get('userInfo')
 			? JSON.parse(Cookies.get('userInfo'))
