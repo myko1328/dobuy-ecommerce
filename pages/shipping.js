@@ -64,7 +64,8 @@ const Shipping = () => {
 
 	return (
 		<Layout title='Shipping'>
-			<CheckoutWizard activeStep={1} />
+			<CheckoutWizard active={1} />
+
 			<form onSubmit={handleSubmit(submitHandler)} className={classes.form}>
 				<Typography component='h1' variant='h1'>
 					Shipping To

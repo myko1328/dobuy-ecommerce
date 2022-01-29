@@ -46,7 +46,7 @@ const Payment = () => {
 	};
 	return (
 		<Layout title='Payment Method'>
-			<CheckoutWizard activeStep={2} />
+			<CheckoutWizard active={2} />
 			<form className={classes.form} onSubmit={submitHandler}>
 				<Typography component='h1' variant='h1'>
 					Payment Method
