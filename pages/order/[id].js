@@ -21,7 +21,6 @@ import NextLink from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import useStyle from '../../utils/styles';
-import CheckoutWizard from '../../components/checkoutWizard';
 import { getError } from '../../utils/error';
 import axios from 'axios';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
